@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  vendor    Vendor?
+}
+
+model Vendor {
+  id           String     @id @default(uuid())
+  userId       String     @unique
+  user         User       @relation(fields: [userId], references: [id])
+  businessName String
+  whatsapp     String?
+  logoUrl      String?
+  slug         String     @unique
+  createdAt    DateTime   @default(now())
+  products     Product[]
+  customers    Customer[]
+  orders       Order[]
+}
+
+model Product {
+  id          String      @id @default(uuid())
+  vendorId    String
+  vendor      Vendor      @relation(fields: [vendorId], references: [id])
+  name        String
+  description String?
+  price       Float
+  costPrice   Float?
+  stock       Int         @default(0)
+  imageUrl    String?
+  createdAt   DateTime    @default(now())
+  orderItems  OrderItem[]
+}
+
+model Customer {
+  id        String   @id @default(uuid())
+  vendorId  String
+  vendor    Vendor   @relation(fields: [vendorId], references: [id])
+  name      String
+  phone     String?
+  email     String?
+  createdAt DateTime @default(now())
+  orders    Order[]
+}
+
+model Order {
+  id         String      @id @default(uuid())
+  vendorId   String
+  vendor     Vendor      @relation(fields: [vendorId], references: [id])
+  customerId String
+  customer   Customer    @relation(fields: [customerId], references: [id])
+  status     OrderStatus @default(INQUIRY)
+  total      Float
+  createdAt  DateTime    @default(now())
+  items      OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+}
+
+enum OrderStatus {
+  INQUIRY
+  PENDING_PAYMENT
+  PAID
+  PACKAGING
+  SHIPPED
+  DELIVERED
+}
