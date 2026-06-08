@@ -6,7 +6,7 @@ import { PrismaPg } from '@prisma/adapter-pg';
 export class PrismaService extends PrismaClient implements OnModuleInit {
   constructor() {
     const adapter = new PrismaPg({
-      connectionString: 'postgresql://vendora:vendora123@localhost:5432/vendora_db',
+      connectionString: process.env.DATABASE_URL,
     });
     super({ adapter });
   }
