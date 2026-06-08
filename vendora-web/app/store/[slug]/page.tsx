@@ -19,11 +19,11 @@ export default function StorefrontPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch(`http://localhost:3000/vendor/slug/${slug}`)
+    fetch(`https://vendora-production-9853.up.railway.app/vendor/slug/${slug}`)
       .then(r => r.json())
       .then(async (v) => {
         setVendor(v);
-        const p = await fetch(`http://localhost:3000/products/${v.id}`).then(r => r.json());
+        const p = await fetch(`https://vendora-production-9853.up.railway.app/products/${v.id}`).then(r => r.json());
         setProducts(p);
         setLoading(false);
       })
@@ -50,7 +50,7 @@ export default function StorefrontPage() {
     setOrdering(true);
     setError('');
     try {
-      const orderRes = await fetch(`http://localhost:3000/orders/${vendor.id}`, {
+      const orderRes = await fetch(`https://vendora-production-9853.up.railway.app/orders/${vendor.id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -62,7 +62,7 @@ export default function StorefrontPage() {
       const order = await orderRes.json();
 
       if (form.email) {
-        const payRes = await fetch(`http://localhost:3000/payments/initialize`, {
+        const payRes = await fetch(`https://vendora-production-9853.up.railway.app/payments/initialize`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: form.email, amount: total, orderId: order.id }),

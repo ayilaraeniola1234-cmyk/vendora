@@ -11,7 +11,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (!userId) { router.push('/login'); return; }
-    fetch(`http://localhost:3000/vendor/dashboard/${userId}`)
+    fetch(`https://vendora-production-9853.up.railway.app/vendor/dashboard/${userId}`)
       .then(res => res.json())
       .then(d => { setData(d); setLoading(false); })
       .catch(() => router.push('/login'));

@@ -14,8 +14,8 @@ export default function CustomersPage() {
   useEffect(() => {
     if (!vendorId) { router.push('/login'); return; }
     Promise.all([
-      fetch(`http://localhost:3000/customers/${vendorId}`).then(r => r.json()),
-      fetch(`http://localhost:3000/customers/${vendorId}/stats`).then(r => r.json()),
+      fetch(`https://vendora-production-9853.up.railway.app/customers/${vendorId}`).then(r => r.json()),
+      fetch(`https://vendora-production-9853.up.railway.app/customers/${vendorId}/stats`).then(r => r.json()),
     ]).then(([c, s]) => {
       setCustomers(c);
       setStats(s);

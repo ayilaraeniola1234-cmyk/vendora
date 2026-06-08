@@ -14,7 +14,7 @@ export default function ProductsPage() {
   const vendorId = typeof window !== 'undefined' ? localStorage.getItem('vendorId') : null;
 
   const loadProducts = async () => {
-    const res = await fetch(`http://localhost:3000/products/${vendorId}`);
+    const res = await fetch(`https://vendora-production-9853.up.railway.app/products/${vendorId}`);
     const data = await res.json();
     setProducts(data);
     setLoading(false);
@@ -28,7 +28,7 @@ export default function ProductsPage() {
   const handleAdd = async () => {
     if (!form.name || !form.price || !form.stock) return;
     setSaving(true);
-    await fetch(`http://localhost:3000/products/${vendorId}`, {
+    await fetch(`https://vendora-production-9853.up.railway.app/products/${vendorId}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

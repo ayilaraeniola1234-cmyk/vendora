@@ -13,7 +13,7 @@ export default function PaymentVerifyPage() {
     const reference = searchParams.get('reference');
     if (!reference) { setStatus('failed'); return; }
 
-    fetch(`http://localhost:3000/payments/verify/${reference}`)
+    fetch(`https://vendora-production-9853.up.railway.app/payments/verify/${reference}`)
       .then(r => r.json())
       .then(data => {
         if (data.data?.status === 'success') {

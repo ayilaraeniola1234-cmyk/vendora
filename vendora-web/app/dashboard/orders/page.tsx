@@ -22,14 +22,14 @@ export default function OrdersPage() {
   const vendorId = typeof window !== 'undefined' ? localStorage.getItem('vendorId') : null;
 
   const loadOrders = async () => {
-    const res = await fetch(`http://localhost:3000/orders/${vendorId}`);
+    const res = await fetch(`https://vendora-production-9853.up.railway.app/orders/${vendorId}`);
     const data = await res.json();
     setOrders(data);
     setLoading(false);
   };
 
   const updateStatus = async (orderId: string, status: string) => {
-    await fetch(`http://localhost:3000/orders/${orderId}/status`, {
+    await fetch(`https://vendora-production-9853.up.railway.app/orders/${orderId}/status`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),
