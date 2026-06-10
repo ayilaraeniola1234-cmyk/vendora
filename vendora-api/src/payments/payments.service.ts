@@ -14,7 +14,7 @@ export class PaymentsService {
         amount: amount * 100,
         reference: `vendora-${orderId}-${Date.now()}`,
         metadata: { orderId },
-        callback_url: `http://localhost:3001/payment/verify`,
+        callback_url: `https://vendora-web-steel.vercel.app/payment/verify`,
       },
       {
         headers: {
